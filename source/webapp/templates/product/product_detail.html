@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}{% endblock %}
+
+{% block menu %}{% endblock %}
+
+
+
+{% block content %}
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="{{ product.picture }}" class="img-fluid rounded-start">
+        </div>
+        <div class="col-md-8 ps-4">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text"><small
+                        class="text-body-secondary">{{ product.category.name }}</small></p>
+                <p class="card-text">Цена: {{ product.price }}$</p>
+                <p>{{ product.description }}</p>
+                <p class="card-text"><small
+                        class="text-body-secondary">{{ product.created_at }}</small></p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

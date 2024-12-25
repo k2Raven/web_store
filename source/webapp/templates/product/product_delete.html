@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}{% endblock %}
+
+{% block menu %}{% endblock %}
+
+{% block search_block %}{% endblock %}
+
+{% block content %}
+    <h1>Вы действительно хотите удалить продукт "{{ product.name }}" ?</h1>
+
+    <div class="d-flex  justify-content-center">
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="submit" class="btn btn-danger" value="Да">
+        </form>
+        <a href="{% url 'product-list' %}" class="btn btn-success ms-3">Нет</a>
+    </div>
+
+{% endblock %}
