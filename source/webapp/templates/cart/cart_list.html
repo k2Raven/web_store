@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}{% endblock %}
+
+{% block menu %}{% endblock %}
+
+{% block content %}
+    <h1>Карзина</h1>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Название</th>
+            <th scope="col">Цена</th>
+            <th scope="col">Количество</th>
+            <th scope="col">Сумма</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in cart_products %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ item.product.name }}</td>
+                <td>{{ item.product.price }}</td>
+                <td>{{ item.qty }}</td>
+                <td class="d-flex">
+                    <p class="my-auto">{{ item.get_total }}</p>
+                    <div class=" ms-auto">
+                        <a href="{% url 'products-remove-from-cart_piece_by_piece' item.pk %}"
+                           class="btn btn-outline-danger"> - 1 </a>
+                        <a href="{% url 'products-remove-from-cart' item.pk %}"
+                           class="btn btn-outline-danger"><i
+                                class="bi bi-trash3-fill"></i></a>
+                    </div>
+                </td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <h4>Итого: {{ cart_total }}</h4>
+
+{% endblock %}

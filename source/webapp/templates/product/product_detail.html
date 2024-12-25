@@ -13,13 +13,34 @@
         </div>
         <div class="col-md-8 ps-4">
             <div class="card-body">
-                <h5 class="card-title">{{ product.name }}</h5>
+                <div class="d-flex justify-content-between">
+                    <h5 class="card-title">{{ product.name }} </h5>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <a href="{% url 'product-update' product.pk %}" class="btn btn-outline-success"><i
+                                class="bi bi-pencil-fill"></i></a>
+                        <a href="{% url 'product-delete' product.pk %}"
+                           class="btn btn-outline-danger"><i class="bi bi-trash3-fill"></i></a>
+                    </div>
+                </div>
                 <p class="card-text"><small
                         class="text-body-secondary">{{ product.category.name }}</small></p>
+                <p class="card-text"><small
+                        class="text-body-secondary">Остаток: {{ product.qty }}</small></p>
                 <p class="card-text">Цена: {{ product.price }}$</p>
                 <p>{{ product.description }}</p>
                 <p class="card-text"><small
                         class="text-body-secondary">{{ product.created_at }}</small></p>
+
+                <form action="{% url 'products-add-to-cart' product.pk %}?next={{ request.get_full_path }}" method="post">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <input type="number" class="form-control" name="qty" value="1"
+                               aria-label="Количество" aria-describedby="button-addon{{ product.pk }}">
+                        <button class="btn btn-outline-secondary" type="submit" id="button-addon{{ product.pk }}">
+                            <i class="bi bi-cart-plus-fill"></i>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

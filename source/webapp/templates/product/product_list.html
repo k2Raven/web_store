@@ -35,8 +35,20 @@
                                 </div>
                                 <p class="card-text"><small
                                         class="text-body-secondary">{{ product.category.name }}</small></p>
+                                <p class="card-text"><small
+                                        class="text-body-secondary">Остаток: {{ product.qty }}</small></p>
                                 <p class="card-text">Цена: {{ product.price }}$</p>
                                 <a href="{% url 'product-detail' product.pk %}" class="card-link">Подробнее</a>
+                                <form action="{% url 'products-add-to-cart' product.pk %}?next={{ request.get_full_path }}" method="post">
+                                    {% csrf_token %}
+                                    <div class="input-group mb-3">
+                                        <input type="number" class="form-control" name="qty" value="1"
+                                               aria-label="Количество" aria-describedby="button-addon{{ product.pk }}">
+                                        <button class="btn btn-outline-secondary" type="submit" id="button-addon{{ product.pk }}">
+                                            <i class="bi bi-cart-plus-fill"></i>
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
