@@ -40,5 +40,12 @@
         </tbody>
     </table>
     <h4>Итого: {{ cart_total }}</h4>
-
+{% if cart_products.count %}
+    <h3>Оформление заказа</h3>
+    <div class="mt-4">
+        <form action="{% url 'order_create' %}" method="post">
+            {% include 'partial/form.html' with button_text='Оформить' %}
+        </form>
+    </div>
+{% endif %}
 {% endblock %}

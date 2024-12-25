@@ -2,7 +2,7 @@ from django.db.models import Sum, F
 from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import ListView, CreateView, DeleteView, View
 from django.urls import reverse, reverse_lazy
-from webapp.forms import CartFrom
+from webapp.forms import CartFrom, OrderForm
 from webapp.models import Cart, Product
 
 
@@ -14,6 +14,7 @@ class CartView(ListView):
     def get_context_data( self, **kwargs ):
         context = super().get_context_data(**kwargs)
         context['cart_total'] = self.object_list.aggregate(total=Sum(F('product__price') * F('qty') ))['total']
+        context['form'] = OrderForm()
         return context
 
 class ProductsAddToCartView(View):
