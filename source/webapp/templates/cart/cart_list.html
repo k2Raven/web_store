@@ -21,11 +21,11 @@
         {% for item in cart_products %}
             <tr>
                 <th scope="row">{{ forloop.counter }}</th>
-                <td>{{ item.product.name }}</td>
-                <td>{{ item.product.price }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.price }}</td>
                 <td>{{ item.qty }}</td>
                 <td class="d-flex">
-                    <p class="my-auto">{{ item.get_total }}</p>
+                    <p class="my-auto">{{ item.total }}</p>
                     <div class=" ms-auto">
                         <a href="{% url 'products-remove-from-cart_piece_by_piece' item.pk %}"
                            class="btn btn-outline-danger"> - 1 </a>
@@ -40,7 +40,7 @@
         </tbody>
     </table>
     <h4>Итого: {{ cart_total }}</h4>
-{% if cart_products.count %}
+{% if cart_products %}
     <h3>Оформление заказа</h3>
     <div class="mt-4">
         <form action="{% url 'order_create' %}" method="post">
