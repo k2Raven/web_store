@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.db.models import Sum, F
 from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import TemplateView, CreateView, DeleteView, View
@@ -12,6 +13,7 @@ class CartView(TemplateView):
     def get_context_data( self, **kwargs ):
         context = super().get_context_data(**kwargs)
         cart = self.request.session.get('cart', {})
+
 
         cart_total = 0
         products = Product.objects.filter(id__in=cart.keys())
@@ -40,6 +42,9 @@ class ProductsAddToCartView(View):
 
         if product.qty >= qty:
             cart[str(product.id)] = qty
+            messages.success(request, f'Продукт "{product.name}" добавлен в корзину')
+        else:
+            messages.error(request, 'error')
 
         request.session['cart'] = cart
         # if product.qty > 0 and qty > 0:
